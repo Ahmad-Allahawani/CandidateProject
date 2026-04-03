@@ -1,4 +1,4 @@
-﻿using aspPro2.Migrations;
+﻿
 using aspPro2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +7,14 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using System.Net;
 using System.Security;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace aspPro2.Controllers
 {
     public class LoginController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
 
         public LoginController(ApplicationDbContext context)
         {
@@ -28,25 +30,26 @@ namespace aspPro2.Controllers
         
         public async Task<IActionResult> SignInCONFIRM(string email, String password)
         {
-            CookieOptions cookieop = new CookieOptions();
-            cookieop.Expires = DateTimeOffset.UtcNow.AddDays(1);
-
-
-            Response.Cookies.Append("UserPass", password);
-            Response.Cookies.Append("UserEmail", email);
+            var user = await _context.Users
+                    .FirstOrDefaultAsync(m => m.Email == email);
             if (email != null)
             {
-                var user = await _context.users
-                    .FirstOrDefaultAsync(m => m.Email == email && m.password == password);
+                var result = _passwordHasher.VerifyHashedPassword(user, user.password, password);
 
-                if (user != null)
+                if (result == PasswordVerificationResult.Success)
                 {
+                    Response.Cookies.Append("UserEmail", email, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true
+
+                    });
                     return RedirectToAction("Index", "Home");
 
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest(new { message = "Wrong Email or Password." });
                 }
             }
             else
@@ -58,37 +61,42 @@ namespace aspPro2.Controllers
         [HttpPost, ActionName("sign up")]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> signUpForm(Users person, String Email, string password)
+        public async Task<IActionResult> signUpForm(User person, String Email, string password)
         {
-            CookieOptions cookieop = new CookieOptions();
-            cookieop.Expires = DateTimeOffset.UtcNow.AddDays(1);
 
+            bool emailNotExists = !_context.Users.Any(u => u.Email == Email);
+                    
 
-            Response.Cookies.Append("UserPass", password);
-            Response.Cookies.Append("UserEmail", Email);
-
-            if (Email != null)
+            if (Email != null && emailNotExists)
             {
-                _context.users.Add(person);
+                person.password = _passwordHasher.HashPassword(person, password);
+
+                _context.Users.Add(person);
                 await _context.SaveChangesAsync();
+
+                Response.Cookies.Append("UserEmail", Email, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true
+                    
+                });
                 return RedirectToAction("Profile", "login", new { id = person.Id, email = Email });
             }
-            return NotFound();
+            return BadRequest(new { message = "User with this email already exists." });
         }
 
 
 
         [HttpGet]
-        [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            var pass = Request.Cookies["UserPass"];
+            
             var email = Request.Cookies["UserEmail"];
 
-            if (email != null && pass != null)
+            if (email != null )
             {
-                var user = await _context.users
-                    .FirstOrDefaultAsync(x => x.Email == email && x.password == pass);
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(x => x.Email == email);
                 if (user != null)
                 {
                     return View(user);
@@ -112,26 +120,29 @@ namespace aspPro2.Controllers
 
         [HttpPost]
         
-        public async Task<IActionResult> Profile(Users users)
+        public async Task<IActionResult> UpdateProfile(User users)
         {
-            var pass = Request.Cookies["UserPass"];
+            
             var email = Request.Cookies["UserEmail"];
 
             
-            if (email != null && pass != null)
+            if (email != null)
             {
-                var user = await _context.users
-                    .FirstOrDefaultAsync(x => x.Email == email && x.password == pass);
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(x => x.Email == email);
                 if (user != null)
                 {
                     user.Name = users.Name;
                     user.LastName = users.LastName;
                     user.Email = users.Email;
-                    user.password = users.password;
+                    if (!string.IsNullOrEmpty(users.password))
+                    {
+                        user.password = _passwordHasher.HashPassword(user, users.password);
+                    }
 
 
 
-                    _context.users.Update(user);
+                    _context.Users.Update(user);
                     await _context.SaveChangesAsync();
                     return View(user);
                 }

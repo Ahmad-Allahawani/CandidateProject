@@ -1,0 +1,70 @@
+﻿@model List<aspPro2.Models.Department>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_NewLayout1.cshtml";
+}
+<head>
+    <link href="~/lib/bootstrap/dist/css/CRUDStyle.css" rel="stylesheet" />
+</head>
+
+<div class="crud-root">
+
+    <div class="crud-header">
+        <div class="crud-header-left">
+            <div class="crud-eyebrow">Academic Management</div>
+            <h1>________________</h1>
+        </div>
+
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dept in Model)
+                {
+                    <tr>
+                        <td class="td-id">#@dept.Id</td>
+                        <td class="td-title">@dept.Name</td>
+                       @*  <td>
+                            <span class="td-dept">
+                                <span class="dept-dot"></span>
+                                @dept.Department
+                            </span>
+                        </td> *@
+                        <td>
+                            <div class="actions-cell">
+                                <button class="edit-btn"
+                                        onclick="location.href='@Url.Action("EditDepartment", "Home", new { id = dept.Id })'">
+                                    Edit
+                                </button>
+                                <form asp-action="DeleteDepartment" asp-controller="Home" method="post">
+                                    <input type="hidden" name="id" value="@dept.Id" />
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="crud-footer">
+        <a class="btn-add" href="@Url.Action("CreateDepartment", "Home")">
+            <span class="btn-add-icon">+</span>
+            Add New Department
+        </a>
+        <span class="crud-footer-text">@Model.Count() Department(s) total</span>
+        <a class="back-link" href="@Url.Action("Index", "Home")">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+</div>

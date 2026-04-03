@@ -9,22 +9,22 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\IndexNew.css" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\profileStyle.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\searchedStyle.css" />
     <_ContentIncludedByDefault Remove="wwwroot\manifest.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.85" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\images\img.jpg" />
   </ItemGroup>
 
   <ItemGroup>

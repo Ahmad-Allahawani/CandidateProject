@@ -1,4 +1,4 @@
-﻿@model aspPro2.Models.Users
+﻿@model aspPro2.Models.User
 @{
     ViewData["Title"] = "signUp";
     Layout = null;
@@ -27,7 +27,7 @@
                 </div>
                 <span>or use your email for registeration</span>
                 <input asp-for="Name" type="text" placeholder="name" />
-                <input asp-for="Email" type="email" placeholder="email" />
+                <input asp-for="Email" type="email" required placeholder="email" />
                 <input asp-for="password" type="password" placeholder="password" />
                 <button type="submit">sign up</button>
             </form>

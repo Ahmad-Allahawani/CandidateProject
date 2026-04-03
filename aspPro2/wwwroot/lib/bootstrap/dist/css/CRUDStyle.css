@@ -1,0 +1,266 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.crud-root {
+    font-family: 'DM Sans', sans-serif;
+    background: #0f0f13;
+    min-height: 100vh;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .crud-root::before {
+        content: '';
+        position: absolute;
+        top: -200px;
+        left: -200px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(99,60,220,0.18) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .crud-root::after {
+        content: '';
+        position: absolute;
+        bottom: -150px;
+        right: -100px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(180,60,120,0.12) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+.crud-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+}
+
+.crud-header-left .crud-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 8px;
+}
+
+.crud-header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-shadow: none;
+}
+
+.btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(99,60,220,0.2);
+    color: #9b7aff;
+    border: 0.5px solid rgba(99,60,220,0.4);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+}
+
+    .btn-add:hover {
+        background: rgba(99,60,220,0.35);
+        border-color: rgba(99,60,220,0.6);
+    }
+
+.btn-add-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid #9b7aff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.table-wrap {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+thead tr {
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+
+thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.2);
+}
+
+tbody tr {
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+    transition: background 0.2s;
+}
+
+    tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background: rgba(255,255,255,0.04);
+    }
+
+tbody td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+}
+
+.td-id {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    font-family: monospace;
+}
+
+.td-title {
+    color: #fff;
+    font-weight: 500;
+}
+
+.td-dept {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+}
+
+.dept-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f5a265;
+    flex-shrink: 0;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.edit-btn, .delete-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 0.5px solid transparent;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.edit-btn {
+    background: rgba(245,162,101,0.12);
+    color: #f5a265;
+    border-color: rgba(245,162,101,0.25);
+}
+
+    .edit-btn:hover {
+        background: rgba(245,162,101,0.22);
+        border-color: rgba(245,162,101,0.4);
+    }
+
+.delete-btn {
+    background: rgba(226,75,74,0.1);
+    color: #f07070;
+    border-color: rgba(226,75,74,0.2);
+}
+
+    .delete-btn:hover {
+        background: rgba(226,75,74,0.2);
+        border-color: rgba(226,75,74,0.35);
+    }
+
+.crud-footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.crud-footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    font-weight: 300;
+}
+
+.back-link {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+    .back-link:hover {
+        color: rgba(255,255,255,0.5);
+    }
+
+@media (max-width: 700px) {
+    .crud-root {
+        padding: 32px 20px;
+    }
+
+    .crud-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    thead th, tbody td {
+        padding: 12px 14px;
+    }
+}
