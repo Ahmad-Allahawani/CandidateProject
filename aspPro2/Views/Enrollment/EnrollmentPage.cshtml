@@ -1,4 +1,4 @@
-﻿@model List<aspPro2.Models.Course>
+﻿@model List<aspPro2.Models.Enrollment>
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_NewLayout1.cshtml";
@@ -14,7 +14,7 @@
             <div class="crud-eyebrow">Academic Management</div>
             <h1>________________</h1>
         </div>
-        
+
     </div>
 
     <div class="table-wrap">
@@ -22,34 +22,31 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Department</th>
+                    <th>UserId</th>
+                    <th>CourseId</th>
+                    <th>EnrollmentDate</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var course in Model)
+                @foreach (var enroll in Model)
                 {
                     <tr>
-                        <td class="td-id">#@course.Id</td>
-                        <td class="td-title">@course.Title</td>
-                        <td>
-                            <span class="td-dept">
-                                <span class="dept-dot"></span>
-                                @course.DepartmentId
-                            </span>
-                        </td>
+                        <td class="td-id">#@enroll.Id</td>
+                        <td class="td-title">@enroll.UserId</td>
+                        <td class="td-title">@enroll.CourseId</td>
+                        <td class="td-title">@enroll.EnrollmentDate</td>
+                       
                         <td>
                             <div class="actions-cell">
                                 <button class="edit-btn"
-                                        onclick="location.href='@Url.Action("EditCourse", "Home", new { id = course.Id })'">
+                                        onclick="location.href='@Url.Action("EditEnrollment", "Enrollment", new { id = enroll.Id })'">
                                     Edit
                                 </button>
-                                <form asp-action="DeleteCourse" asp-controller="Home" method="post">
-                                    <input type="hidden" name="id" value="@course.Id" />
+                                <form asp-action="DeleteEnrollment" asp-controller="Enrollment" method="post">
+                                    <input type="hidden" name="id" value="@enroll.Id" />
                                     <button type="submit" class="delete-btn">Delete</button>
                                 </form>
-                                
                             </div>
                         </td>
                     </tr>
@@ -59,11 +56,11 @@
     </div>
 
     <div class="crud-footer">
-        <a class="btn-add" href="@Url.Action("CreateCourse", "Home")">
+        <a class="btn-add" href="@Url.Action("CreateEnrollment", "Enrollment")">
             <span class="btn-add-icon">+</span>
-            Add New Course
+            Add New Enrollment
         </a>
-        <span class="crud-footer-text">@Model.Count() course(s) total</span>
+        <span class="crud-footer-text">@Model.Count() Enrollment(s) total</span>
         <a class="back-link" href="@Url.Action("Index", "Home")">
             ← Back to Dashboard
         </a>

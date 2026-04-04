@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@* <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,8 +26,8 @@
         <nav>
             <a href="#" class="active"><i class="fa-duotone fa-solid fa-house"></i>home</a>
             <a asp-controller="login" asp-action="Profile"><i class="fa-solid fa-user"></i>manage Profile</a>
-            <a asp-controller="Home" asp-action="AboutGame"><i class="fa-solid fa-gamepad"></i>about game</a>
-            <a asp-controller="Search" asp-action="Search"><i class="fa-solid fa-magnifying-glass"></i>search games</a>
+            <a asp-controller="StudentController1" asp-action="Index><i class="fa-solid fa-gamepad"></i>about game</a>
+            <a asp-controller="StudentController1" asp-action="Index><i class="fa-solid fa-magnifying-glass"></i>search games</a>
             <a asp-controller="StudentController1" asp-action="Index"><i class="fa-solid fa-download"></i>download games</a>
             <span></span>
             <i class="fa-regular fa-x" id="X" onclick=hideSidebar()></i>
@@ -63,4 +63,4 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+</html> *@
