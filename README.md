@@ -3,7 +3,7 @@
 ##  Live Website
 
 You can access the live website using the following link:
-👉 [https://allahawaniahmad-001-site1.ktempurl.com/](https://allahawaniahmad-001-site1.ktempurl.com/)
+ [https://allahawaniahmad-001-site1.ktempurl.com/](https://allahawaniahmad-001-site1.ktempurl.com/)
 
 ---
 ## Table of Contents
